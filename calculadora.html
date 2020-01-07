@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script>
+
+
+function calcula(){
+
+inv=parseFloat(inversion.value);
+var checkbox = document.getElementById('i');
+
+
+if (checkbox.checked) {
+	comi=inv*0.10;
+	document.myform.comision.value=comi;
+	igv=(inv+comi)*0.18;
+	tot=inv+comi+igv;
+	document.myform.igv.value=igv;
+	document.myform.total.value=tot;
+}
+else{
+
+	comi=inv*0.10;
+	document.myform.comision.value=comi;
+	igv=0;
+	tot=inv+comi;
+	document.myform.igv.value=igv;
+	document.myform.total.value=tot;	}
+
+};
+
+function calcula2(){
+	tot=parseFloat(total.value);
+var checkbox2 = document.getElementById('i2');
+
+if (checkbox2.checked) {
+	igv=(tot*0.18)/1.18;
+	document.myform.igv.value=igv;
+
+	inv=Math.round((tot-igv)/1.1);
+	document.myform.inversion.value=inv;
+
+	comi=inv*0.1;
+	document.myform.comision.value=comi;
+	
+}
+else{
+	//tot=parseFloat(total.value);
+	igv=0;
+	document.myform.igv.value=igv;
+
+	inv=Math.round((tot)/1.1);
+	document.myform.inversion.value=inv;
+
+	comi=inv*0.1;
+	document.myform.comision.value=comi;
+	}
+};
+
+//enviarle el link del repositorio
+
+        </script>
+</head>
+        <body>
+        	<form method=post name="myform">
+        	<p>Inversion</p>
+<input type="text" id="inversion" onkeyup="calcula()">
+        	<p>Comision</p>
+<input type="text" id="comision"  >
+
+
+
+        	<p>IGV</p>
+        	<input type="checkbox" id="i" onchange="calcula()">
+        	<input type="checkbox" id="i2" onchange="calcula2()">
+<input type="text" id="igv" >
+        	<p>Total</p>
+<input type="text" id="total" onkeyup="calcula2()">
+        
+</form>
+        </body>
+        </html>
