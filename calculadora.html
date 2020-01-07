@@ -6,7 +6,15 @@
 
 
 function calcula(){
-
+	if(document.myform.inversion.value>500){
+	document.getElementById("texto1").style.visibility = 'hidden';
+	document.getElementById("texto2").style.visibility = 'visible';
+}
+else {
+	document.getElementById("texto1").style.visibility = 'visible';
+	document.getElementById("texto2").style.visibility = 'hidden';
+}
+document.getElementById("i2").style.visibility="hidden";
 inv=parseFloat(inversion.value);
 var checkbox = document.getElementById('i');
 
@@ -31,34 +39,54 @@ else{
 };
 
 function calcula2(){
+
+
+
+document.getElementById("i").style.visibility="hidden";
 	tot=parseFloat(total.value);
 var checkbox2 = document.getElementById('i2');
 
 if (checkbox2.checked) {
-	igv=(tot*0.18)/1.18;
+	igv=((tot*0.18)/1.18);
+	igv=parseFloat(Math.round(igv * 100) / 100).toFixed(2);
 	document.myform.igv.value=igv;
 
-	inv=Math.round((tot-igv)/1.1);
+	inv=((tot-igv)/1.1);
+	inv=parseFloat(Math.round(inv * 100) / 100).toFixed(2);
 	document.myform.inversion.value=inv;
 
-	comi=inv*0.1;
+	comi=(inv*0.1);
+	comi=parseFloat(Math.round(comi * 100) / 100).toFixed(2);
 	document.myform.comision.value=comi;
 	
 }
+
 else{
 	//tot=parseFloat(total.value);
 	igv=0;
 	document.myform.igv.value=igv;
 
-	inv=Math.round((tot)/1.1);
+	inv=((tot)/1.1);
+	parseFloat(Math.round(inv * 100) / 100).toFixed(2);
 	document.myform.inversion.value=inv;
 
-	comi=inv*0.1;
+	comi=(inv*0.1);
+	parseFloat(Math.round(comi * 100) / 100).toFixed(2);
 	document.myform.comision.value=comi;
-	}
+	};
+
+if(document.myform.inversion.value>500){
+	document.getElementById("texto1").style.visibility = 'hidden';
+	document.getElementById("texto2").style.visibility = 'visible';
+}
+else {
+	document.getElementById("texto1").style.visibility = 'visible';
+	document.getElementById("texto2").style.visibility = "hidden";
+}
+	
 };
 
-//enviarle el link del repositorio
+//redondeo a 2 decimales en mathrow
 
         </script>
 </head>
@@ -70,6 +98,21 @@ else{
 <input type="text" id="comision"  >
 
 
+
+        	<p>IGV</p>
+        	<input type="checkbox" id="i" onchange="calcula()">
+        	<input type="checkbox" id="i2" onchange="calcula2()">
+<input type="text" id="igv" >
+        	<p>Total</p>
+<input type="text" id="total" onkeyup="calcula2()">
+<p>Mas informacion
+	</p>
+<input type="textarea" id="texto1" value ="Aqui va el texto 1">
+<p>  </p>
+<input type="textarea" id="texto2" value ="Aqui va el texto 2">
+</form>
+        </body>
+        </html>
 
         	<p>IGV</p>
         	<input type="checkbox" id="i" onchange="calcula()">
