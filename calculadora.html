@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+
+<!--
+<script   src="jquery-3.4.1.js"  ></script>
+<script src="jspdf.debug.js"></script>
+-->
+
 <head lang="en">
     <meta charset="UTF-8">
     <script>
@@ -14,6 +20,7 @@ else {
 	document.getElementById("texto1").style.visibility = 'visible';
 	document.getElementById("texto2").style.visibility = 'hidden';
 }
+document.getElementById("i").style.visibility="visible";
 document.getElementById("i2").style.visibility="hidden";
 inv=parseFloat(inversion.value);
 var checkbox = document.getElementById('i');
@@ -43,12 +50,14 @@ function calcula2(){
 
 
 document.getElementById("i").style.visibility="hidden";
+document.getElementById("i2").style.visibility="visible";
 	tot=parseFloat(total.value);
 var checkbox2 = document.getElementById('i2');
 
 if (checkbox2.checked) {
 	igv=((tot*0.18)/1.18);
 	igv=parseFloat(Math.round(igv * 100) / 100).toFixed(2);
+
 	document.myform.igv.value=igv;
 
 	inv=((tot-igv)/1.1);
@@ -86,20 +95,66 @@ else {
 	
 };
 
+
 function calcula3(){
-	clicks1=document.myform.Competencia.options[indice].value;
-	clicks2=document.myform.Negocio.options[indice].value;
-	clicks=clicks1*clicks2;
-	document.getElementById("salida")=clicks;
-}
-//redondeo a 2 decimales en mathrow
+	
+
+	var clicks1=document.getElementById("competencia").value;
+	
+	
+
+	var clicks2=document.getElementById("negocio").value;
+	inv=parseFloat(inversion.value);
+	clicks=inv/(clicks1*clicks2);
+
+	// muestra el numero exacto de clicks  document.getElementById("salida").value=clicks;
+
+	menosclicks=clicks-50;
+	masclicks=clicks+50;
+	ran= Math.random() * (masclicks - menosclicks) + menosclicks;
+
+	document.getElementById("random").value=ran;
+};
+
+function oculta2(){
+	document.getElementById("i").style.visibility="hidden";
+document.getElementById("i2").style.visibility="hidden";
+};
+/*
+document.getElementById("inversion").addEventListener("keypress",verificar);
+	function verificar(e) {
+ 
+		// comprobamos con una expresion regular que el caracter pulsado sea
+		// una letra, numero o un espacio
+		if(e.key.match(/[0-9]/i)===null) {
+ 
+			// Si la tecla pulsada no es la correcta, eliminado la pulsación
+			e.preventDefault();
+		};
+	};
+/*
+function DescargarPDF(imprime,nombre){
+	var pdf = new jsPDF('p', 'pt', 'letter');
+
+	html =$('#'+ContenidoID).html();
+	specialElementsHandlers={};
+	margins ={top:10, bottom: 20, left:20, width: 522};
+
+	pdf.fromHTML(html, margins.left, margins.top,{'width': margins.width}, function(dispose){pdf.save(nombre+'.pdf');},margins);
+};
+
+*/
 
         </script>
 </head>
-        <body>
+        <body onload="oculta2()">
+
+        	<div id="pantalla">
+    <!-- el contenido HTML va aqui -->
+
         	<form method=post name="myform">
         	<p>Inversion</p>
-<input type="text" id="inversion" onkeyup="calcula()">
+<input pattern="[0-9]" type="text" id="inversion" onkeyup="calcula()" >
         	<p>Comision</p>
 <input type="text" id="comision"  >
 
@@ -119,24 +174,40 @@ function calcula3(){
 
 <p>Seleccione competencia</p>
 
-<select name="Competencia" onchange="calcula3()"> 
-<option value="0.2">Ninguna
-<option value="1">Baja
+<select name="competencia" id="competencia" onchange="calcula3()"> 
+<option disabled selected >Seleccione competencia
+<option value="0.2" >Ninguna
+<option value="1" >Baja
 <option value="2">Media
 <option value="3">Alta
 </select> 
 
 <p>Seleccione negocio</p>
-<select name="Negocio" onchange="calcula3()"> 
-<option value="1">Negocio 1 
+<select name="negocio" id="negocio" onchange="calcula3()"> 
+<option disabled selected >Seleccione negocio
+<option value="1" >Negocio 1 
 <option value="2">Negocio 2
 <option value="3">Negocio 3
 </select> 
 
-	<p>Clicks</p>
 
-	<input type="text" name="salida" >
 
-</form>
+<p>Clicks</p>
+
+
+<input type="textarea" id="random">
+
+  <!-- <input type="submit" name="Imprimir" onclick="DescargarPDF('imprime','archivo')" value="Descargar PDF"/>
+</form> -->
+
+
+</div>
+
+
+
+
+
         </body>
+
+
         </html>
