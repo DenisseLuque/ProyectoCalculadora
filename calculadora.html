@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 
-<!--
+
 <script   src="jquery-3.4.1.js"  ></script>
 <script src="jspdf.debug.js"></script>
--->
+
 
 <head lang="en">
     <meta charset="UTF-8">
@@ -27,23 +27,41 @@ var checkbox = document.getElementById('i');
 
 
 if (checkbox.checked) {
+	inv=parseFloat(inversion.value);
+	inv=parseFloat(Math.round(inv * 100) / 100).toFixed(2);
+
 	comi=inv*0.10;
+	comi=parseFloat(Math.round(comi * 100) / 100).toFixed(2);
 	document.myform.comision.value=comi;
-	igv=(inv+comi)*0.18;
-	tot=inv+comi+igv;
+	
+	igv=((parseFloat(inv)+parseFloat(comi))*0.18);
+	igv=parseFloat(Math.round(igv * 100) / 100).toFixed(2);
 	document.myform.igv.value=igv;
+
+	tot=(parseFloat(inv)+parseFloat(comi)+parseFloat(igv));
+
+	tot=parseFloat(Math.round(tot * 100) / 100).toFixed(2);
 	document.myform.total.value=tot;
 }
 else{
+	inv=parseFloat(inversion.value);
+	inv=parseFloat(Math.round(inv * 100) / 100).toFixed(2);
 
 	comi=inv*0.10;
+	comi=parseFloat(Math.round(comi * 100) / 100).toFixed(2);
 	document.myform.comision.value=comi;
-	igv=0;
-	tot=inv+comi;
-	document.myform.igv.value=igv;
-	document.myform.total.value=tot;	}
 
-};
+	igv=0.00;
+	igv=parseFloat(Math.round(igv * 100) / 100).toFixed(2);
+	document.myform.igv.value=igv;
+
+	
+	tot=parseFloat(inv)+parseFloat(comi);
+	tot=parseFloat(Math.round(tot * 100) / 100).toFixed(2);
+		document.myform.total.value =tot;
+			}
+
+}
 
 function calcula2(){
 
@@ -71,18 +89,18 @@ if (checkbox2.checked) {
 }
 
 else{
-	//tot=parseFloat(total.value);
-	igv=0;
+	tot=parseFloat(total.value);
+	igv=0.00;
 	document.myform.igv.value=igv;
 
-	inv=((tot)/1.1);
-	parseFloat(Math.round(inv * 100) / 100).toFixed(2);
+	inv=((tot-igv)/1.1);
+	inv=parseFloat(Math.round(inv * 100) / 100).toFixed(2);
 	document.myform.inversion.value=inv;
 
 	comi=(inv*0.1);
-	parseFloat(Math.round(comi * 100) / 100).toFixed(2);
+	comi=parseFloat(Math.round(comi * 100) / 100).toFixed(2);
 	document.myform.comision.value=comi;
-	};
+	}
 
 if(document.myform.inversion.value>500){
 	document.getElementById("texto1").style.visibility = 'hidden';
@@ -112,6 +130,8 @@ function calcula3(){
 	menosclicks=clicks-50;
 	masclicks=clicks+50;
 	ran= Math.random() * (masclicks - menosclicks) + menosclicks;
+	ran= parseFloat(Math.round(ran * 100) / 100).toFixed(0);
+
 
 	document.getElementById("random").value=ran;
 };
@@ -132,7 +152,7 @@ document.getElementById("inversion").addEventListener("keypress",verificar);
 			e.preventDefault();
 		};
 	};
-/*
+*/
 function DescargarPDF(imprime,nombre){
 	var pdf = new jsPDF('p', 'pt', 'letter');
 
@@ -143,7 +163,7 @@ function DescargarPDF(imprime,nombre){
 	pdf.fromHTML(html, margins.left, margins.top,{'width': margins.width}, function(dispose){pdf.save(nombre+'.pdf');},margins);
 };
 
-*/
+
 
         </script>
 </head>
@@ -153,19 +173,19 @@ function DescargarPDF(imprime,nombre){
     <!-- el contenido HTML va aqui -->
 
         	<form method=post name="myform">
-        	<p>Inversion</p>
-<input pattern="[0-9]" type="text" id="inversion" onkeyup="calcula()" >
-        	<p>Comision</p>
-<input type="text" id="comision"  >
+<p>Inversion</p>
+<input type="number" id="inversion" onkeyup="calcula()" >
+<p>Comision</p>
+<input type="number" readonly="readonly" id="comision"  >
 
 
 
         	<p>IGV</p>
         	<input type="checkbox" id="i" onchange="calcula()">
         	<input type="checkbox" id="i2" onchange="calcula2()">
-<input type="text" id="igv" >
-        	<p>Total</p>
-<input type="text" id="total" onkeyup="calcula2()">
+<input type="number" readonly="readonly" id="igv" >
+ <p>Total</p>
+<input type="number" id="total" onkeyup="calcula2()">
 <p>Mas informacion
 	</p>
 <input type="textarea" id="texto1" value ="Aqui va el texto 1">
@@ -195,10 +215,10 @@ function DescargarPDF(imprime,nombre){
 <p>Clicks</p>
 
 
-<input type="textarea" id="random">
+<input type="textarea" readonly="readonly" id="random">
 
-  <!-- <input type="submit" name="Imprimir" onclick="DescargarPDF('imprime','archivo')" value="Descargar PDF"/>
-</form> -->
+  <input type="submit" name="Imprimir" onclick="DescargarPDF('imprime','archivo')" value="Descargar PDF"/>
+</form> 
 
 
 </div>
@@ -211,3 +231,4 @@ function DescargarPDF(imprime,nombre){
 
 
         </html>
+
