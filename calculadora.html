@@ -152,7 +152,7 @@ document.getElementById("inversion").addEventListener("keypress",verificar);
 			e.preventDefault();
 		};
 	};
-*/
+
 function DescargarPDF(imprime,nombre){
 	var pdf = new jsPDF('p', 'pt', 'letter');
 
@@ -163,7 +163,7 @@ function DescargarPDF(imprime,nombre){
 	pdf.fromHTML(html, margins.left, margins.top,{'width': margins.width}, function(dispose){pdf.save(nombre+'.pdf');},margins);
 };
 
-
+*/
 
         </script>
 </head>
@@ -215,9 +215,9 @@ function DescargarPDF(imprime,nombre){
 <p>Clicks</p>
 
 
-<input type="textarea" readonly="readonly" id="random">
+<input type="number" readonly="readonly" id="random">
 
-  <input type="submit" name="Imprimir" onclick="DescargarPDF('imprime','archivo')" value="Descargar PDF"/>
+ <!-- <input type="submit" name="Imprimir" onclick="DescargarPDF('imprime','archivo')" value="Descargar PDF"/> -->
 </form> 
 
 
